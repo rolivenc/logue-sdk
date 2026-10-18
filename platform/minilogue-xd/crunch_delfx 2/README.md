@@ -1,16 +1,25 @@
-# Crunch - multi-mode distortion for the minilogue xd delay slot
+# Crunch - five-character distortion for the minilogue xd delay slot
 
-Time        = distortion type (5 zones of 20%): Soft, Tube, Overdrive, Hard, Fold
+Time        = distortion type (5 zones of 20%)
 Depth       = drive (0 dB at 0% up to +54 dB at 100%, linear in dB)
 Shift+Depth = dry/wet mix
 
-Signal flow: drive -> type shaper -> DC blocker -> dry/wet -> final hard clip
+| Zone | Type       | Character |
+|------|------------|-----------|
+| 1    | Tape       | dark, glued, low gain, odd harmonics, low head bump |
+| 2    | Tube       | warm, strong 2nd harmonic that stays at any drive |
+| 3    | Overdrive  | tight lows, mid-forward, dense two-stage clipping |
+| 4    | Germanium  | hot, bright, asymmetric fuzz with a sputtering gate |
+| 5    | Soft Clip  | clean cubic clip, full bandwidth, odd harmonics |
+
+Signal flow: drive -> type (shaper + its own filters) -> DC blocker -> type trim
+-> dry/wet -> final hard clip.
 
 The hard clipper is the last stage, after the dry/wet sum, so the output can
 never exceed +/-CEILING (default 0.8, about -2 dBFS).
 
-Changing the Time zone switches the waveshaper instantly (no crossfade) and
-adds a short click so the switch is always audible.
+Changing the Time zone switches the type instantly (no crossfade) and adds a
+short click so the switch is always audible.
 
 ## Build
 
@@ -31,11 +40,9 @@ delay FX user slot).
 
 ## Tunables (top of crunch_delfx.c)
 
-- CEILING       final hard-clip level
-- DRIVE_MAX_DB  gain at Depth = 100% (lower it if the top end is too extreme
-                or the source noise gets too loud between notes)
-- TYPE_CLICK    click added on a type change (0 = natural switching click only)
-- TUBE_NEG      Tube asymmetry (negative-side ceiling)
-- OD_PRE / OD_POST / OD_KNEE   Overdrive stages
-- FOLD_PRE / FOLD_POST         Fold gains (more = more folds)
-- OUT_TRIM      wet level before the mix
+- CEILING        final hard-clip level
+- DRIVE_MAX_DB   gain at Depth = 100%
+- k_type_gain[]  how hard each type is driven for the same Depth setting
+- k_type_trim[]  per-type output level match
+- TYPE_CLICK     click added on a type change (0 = natural switching click only)
+- TAPE_*, TUBE_*, OD_*, GE_*   per-type character
