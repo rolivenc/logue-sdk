@@ -1,0 +1,6 @@
+Compiler Options
+/Users/rolivencia/Documents/korg/../../tools/gcc/gcc-arm-none-eabi-5_4-2016q3/bin/arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb -mno-thumb-interwork -DTHUMB_NO_INTERWORKING -DTHUMB_PRESENT -g -Os -mlittle-endian -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant -fcheck-new -std=c11 -mstructure-size-boundary=8 -W -Wall -Wextra -Wa,-alms=/Users/rolivencia/Documents/korg/grains-delfx/build/lst/ -DSTM32F446xE -DCORTEX_USE_FPU=TRUE -DARM_MATH_CM4 -D__FPU_PRESENT -I. -I/Users/rolivencia/Documents/korg/grains-delfx/inc -I/Users/rolivencia/Documents/korg/grains-delfx/inc/api -I/Users/rolivencia/Documents/korg/inc -I/Users/rolivencia/Documents/korg/inc/dsp -I/Users/rolivencia/Documents/korg/inc/utils -I/Users/rolivencia/Documents/korg/../ext/CMSIS/CMSIS/Include
+
+Compiling _unit.c
+make: /Users/rolivencia/Documents/korg/../../tools/gcc/gcc-arm-none-eabi-5_4-2016q3/bin/arm-none-eabi-gcc: No such file or directory
+make: *** [/Users/rolivencia/Documents/korg/grains-delfx/build/obj/_unit.o] Error 1
